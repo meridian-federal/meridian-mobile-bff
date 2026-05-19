@@ -43,6 +43,8 @@ import org.springframework.security.config.annotation.web.configuration.OAuth2Au
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 
+import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for JWT support for endpoints of the
  * OAuth2 authorization server that require it (e.g. User Info, Client Registration).
@@ -77,8 +79,8 @@ public final class OAuth2AuthorizationServerJwtAutoConfiguration {
 	private static KeyPair generateRsaKey() {
 		KeyPair keyPair;
 		try {
-			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-			keyPairGenerator.initialize(2048);
+			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("DILITHIUM3", "BC");
+			// Note: DILITHIUM3 does not require initialize() call
 			keyPair = keyPairGenerator.generateKeyPair();
 		}
 		catch (Exception ex) {
