@@ -43,7 +43,7 @@ public abstract class FileUtils {
 	 */
 	public static String sha1Hash(File file) throws IOException {
 		try {
-			MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 			try (InputStream inputStream = new FileInputStream(file)) {
 				byte[] buffer = new byte[BUFFER_SIZE];
 				int bytesRead;
