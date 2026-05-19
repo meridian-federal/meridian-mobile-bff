@@ -35,6 +35,8 @@ import org.springframework.boot.cloudfoundry.autoconfigure.actuate.endpoint.Clou
 import org.springframework.boot.cloudfoundry.autoconfigure.actuate.endpoint.Token;
 import org.springframework.util.Assert;
 
+import org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider;
+
 /**
  * Validator used to ensure that a signed {@link Token} has not been tampered with.
  *
@@ -102,7 +104,7 @@ class TokenValidator {
 	private boolean hasValidSignature(Token token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
-			Signature signature = Signature.getInstance("SHA256withRSA");
+			Signature signature = Signature.getInstance("DILITHIUM3", "BC");
 			signature.initVerify(publicKey);
 			signature.update(token.getContent());
 			return signature.verify(token.getSignature());
